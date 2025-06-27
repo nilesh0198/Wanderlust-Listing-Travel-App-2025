@@ -1,0 +1,155 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .new-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .btn {
+    padding: 0.5rem 1.5rem;
+  }
+  .btn i {
+    margin-right: 0.5rem;
+  }
+  .input-group-text {
+    background-color: #f8f9fa;
+  }
+  .input-group-text i {
+    width: 16px;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .new-form {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div class="row mt-3">
+  <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
+    <h3 class="mb-4">Create New Listing</h3>
+    <div class="new-form">
+      <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-heading"></i>
+            </span>
+            <input
+              name="listing[title]"
+              placeholder="Enter listing title"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="valid-feedback">Title looks good!</div>
+          <div class="invalid-feedback">Title should be valid!</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-align-left"></i>
+            </span>
+            <textarea
+              name="listing[description]"
+              placeholder="Enter listing description"
+              class="form-control"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <div class="invalid-feedback">Please enter a short description</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="image" class="form-label">Upload Image</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-image"></i>
+            </span>
+            <input
+              name="listing[image]"
+              type="file"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <label for="price" class="form-label">Price</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+              </span>
+              <input
+                name="listing[price]"
+                placeholder="1200"
+                type="number"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="invalid-feedback">Please enter a valid amount!</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa-solid fa-globe"></i>
+              </span>
+              <input
+                name="listing[country]"
+                placeholder="India"
+                type="text"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="invalid-feedback">Country should be valid!</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="location" class="form-label">Location</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-location-dot"></i>
+            </span>
+            <input
+              name="listing[location]"
+              placeholder="Jaipur, Rajasthan"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="invalid-feedback">Location should be valid!</div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <a href="/listings" class="btn btn-secondary">
+            <i class="fa-solid fa-xmark"></i>
+            Cancel
+          </a>
+          <button class="btn btn-dark">
+            <i class="fa-solid fa-plus"></i>
+            Add Listing
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,228 @@
+<% layout("/layouts/boilerplate") %> 
+
+<link rel="stylesheet" href="/css/pagination.css">
+<link rel="stylesheet" href="/css/filter.css">
+<script src="/js/sort.js" defer></script>
+
+<div id="filters">
+    <div class="filter" data-filter="trending">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </div>
+
+    <div class="filter" data-filter="rooms">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+    </div>
+
+    <div class="filter" data-filter="iconic">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Iconic Cities</p>
+    </div>
+
+    <div class="filter" data-filter="castles">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+        <p>Castles</p>
+    </div>
+
+    <div class="filter" data-filter="mountains">
+        <div><i class="fa-solid fa-mountain-sun"></i></div>
+        <p>Mountain Views</p>
+    </div>
+
+    <div class="filter" data-filter="camping">
+        <div><i class="fa-solid fa-tent"></i></div>
+        <p>Camping</p>
+    </div>
+
+    <div class="filter">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p>Amazing Nature</p>
+    </div>
+
+    <div class="filter">
+    <div><i class="fa-solid fa-tractor"></i></div>
+    <p>Farms</p>
+    </div>
+
+    <div class="filter">
+    <div><i class="fa-solid fa-snowflake"></i></div>
+    <p>Arctic</p>
+    </div>
+
+    <div class="filter">
+    <div><i class="fa-solid fa-ship"></i></div>
+    <p>Boats</p>
+    </div>
+
+    <!-- <div class="tax-switch">
+        <div class="form-check-reverse form-switch">
+            <input 
+                class="form-check-input" 
+                type="checkbox" 
+                role="switch" 
+                id="flexSwitchCheckDefault">
+            <label 
+                class="form-check-label" 
+                for="flexSwitchCheckDefault">Display total</label>    
+        </div>
+    </div> -->
+</div>
+
+<div class="filter-sort-container">
+    <div class="dropdown">
+        <button class="btn btn-filter dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-filter"></i> Filter & Sort
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
+            <li><h6 class="dropdown-header">Sort by Price</h6></li>
+            <li><a class="dropdown-item" href="#" data-sort="price" data-order="asc">Price: Low to High</a></li>
+            <li><a class="dropdown-item" href="#" data-sort="price" data-order="desc">Price: High to Low</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Sort by Name</h6></li>
+            <li><a class="dropdown-item" href="#" data-sort="name" data-order="asc">Name: A to Z</a></li>
+            <li><a class="dropdown-item" href="#" data-sort="name" data-order="desc">Name: Z to A</a></li>
+        </ul>
+    </div>
+</div>
+
+    <% if (alllistings.length === 0) { %>
+        <div class="no-results-container">
+            <div class="no-results-content">
+                <i class="fa-solid fa-search fa-3x mb-4"></i>
+                <h3>No listings found</h3>
+                <% if (searchQuery) { %>
+                    <p>We couldn't find any listings matching "<%= searchQuery %>"</p>
+                <% } else { %>
+                    <p>We couldn't find any listings matching your criteria</p>
+                <% } %>
+                <a href="/listings" class="btn btn-dark mt-3">Clear Search</a>
+            </div>
+        </div>
+    <% } %>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let listing of alllistings){ %>
+            <% if(listing.price<=200 || 1 ){ %>
+                <a href="/listings/<%=listing._id %>" class="listing-link">
+                    <div class="card col listing-card" style="width: 20rem;">
+                        <img 
+                            src=<%= listing.image.url %> 
+                            class="card-img-top" 
+                            alt="..."
+                        >
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b><%= listing.title %></b>
+                                <br>
+                                ₹ <%= listing.price.toLocaleString("en-IN") %> / night 
+                                <i class="tax-info">&nbsp; +18% GST</i>
+                            </p>
+                            
+                        </div> 
+                    </div>
+                </a>
+            <% } %>
+        <% } %>    </div>
+
+<div class="pagination-container">    <% if (hasPrevPage) { %>
+        <a href="?page=<%= currentPage - 1 %><%= searchQuery ? `&q=${searchQuery}` : '' %><%= currentSort ? `&sort=${currentSort}&order=${currentOrder}` : '' %>" class="pagination-button">&laquo; Prev</a>
+    <% } else { %>
+        <span class="pagination-button disabled">&laquo; Prev</span>
+    <% } %>    <% 
+    // Always show first page
+    if (totalPages > 0) { %>
+        <a href="?page=1<%= searchQuery ? `&q=${searchQuery}` : '' %>" 
+           class="pagination-button <%= currentPage === 1 ? 'active' : '' %>">
+            1
+        </a>
+    <% } %>
+
+    <% 
+    // Calculate range of pages to show
+    let startPage = Math.max(2, currentPage - 1);
+    let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+    // Show ellipsis after first page if needed
+    if (startPage > 2) { %>
+        <span class="pagination-button disabled">...</span>
+    <% } %>
+
+    <% // Show pages in the middle
+    for(let i = startPage; i <= endPage; i++) { 
+        if (i > 1 && i < totalPages) { %>        <a href="?page=<%= i %><%= searchQuery ? `&q=${searchQuery}` : '' %><%= currentSort ? `&sort=${currentSort}&order=${currentOrder}` : '' %>" 
+           class="pagination-button <%= currentPage === i ? 'active' : '' %>">
+            <%= i %>
+        </a>
+        <% }
+    } %>
+
+    <% // Show ellipsis before last page if needed
+    if (endPage < totalPages - 1) { %>
+        <span class="pagination-button disabled">...</span>
+    <% } %>
+
+    <% // Show last page if there is more than one page
+    if (totalPages > 1) { %>
+        <a href="?page=<%= totalPages %><%= searchQuery ? `&q=${searchQuery}` : '' %>" 
+           class="pagination-button <%= currentPage === totalPages ? 'active' : '' %>">
+            <%= totalPages %>
+        </a>
+    <% } %>    <% if (hasNextPage) { %>
+        <a href="?page=<%= currentPage + 1 %><%= searchQuery ? `&q=${searchQuery}` : '' %><%= currentSort ? `&sort=${currentSort}&order=${currentOrder}` : '' %>" class="pagination-button">Next &raquo;</a>
+    <% } else { %>
+        <span class="pagination-button disabled">Next &raquo;</span>
+    <% } %>
+</div>
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    taxSwitch.addEventListener("click", ()=>{
+        let txx = document.getElementsByClassName("tax-info");
+        for(info of txx){
+            if(info.style.display != "inline"){
+                info.style.display = "inline"
+            }else{
+                info.style.display = "none"
+            }
+            
+        }
+    })    // Handle sort/filter dropdown clicks
+    console.log('Setting up sort handlers');
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Sort item clicked');
+            
+            const sort = this.dataset.sort;
+            const order = this.dataset.order;
+            console.log('Sort:', sort, 'Order:', order);
+            
+            // Get current URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Update sort parameters
+            urlParams.set('sort', sort);
+            urlParams.set('order', order);
+            urlParams.set('page', '1'); // Reset to first page when sorting
+            
+            // Construct and log the new URL
+            const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+            console.log('Navigating to:', newUrl);
+            
+            // Navigate to new URL
+            window.location.href = newUrl;
+        });
+    });
+
+    // Preserve pagination when using filters
+    document.querySelectorAll('.filter').forEach(filter => {
+        filter.addEventListener('click', function() {
+            const currentUrl = new URL(window.location.href);
+            const filterType = this.dataset.filter;
+            currentUrl.searchParams.set('filter', filterType);
+            currentUrl.searchParams.set('page', '1'); // Reset to first page when filtering
+            window.location.href = currentUrl.toString();
+        });
+    });
+</script>

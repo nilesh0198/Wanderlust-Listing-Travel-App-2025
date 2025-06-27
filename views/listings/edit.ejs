@@ -1,0 +1,172 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .preview-image {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    margin-top: 0.5rem;
+  }
+  .edit-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .btn {
+    padding: 0.5rem 1.5rem;
+  }
+  .btn i {
+    margin-right: 0.5rem;
+  }
+  .input-group-text {
+    background-color: #f8f9fa;
+  }
+  .input-group-text i {
+    width: 16px;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .edit-form {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div class="row mt-3">
+  <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
+    <h3 class="mb-4">Edit Listing</h3>
+    <div class="edit-form">
+      <form method="POST" 
+        action="/listings/<%=listing._id%>?_method=PUT" 
+        class="needs-validation" 
+        novalidate 
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-heading"></i>
+            </span>
+            <input
+              name="listing[title]"
+              value="<%=listing.title%>"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="valid-feedback">Title looks good!</div>
+          <div class="invalid-feedback">Title should be valid!</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-align-left"></i>
+            </span>
+            <textarea 
+              name="listing[description]" 
+              class="form-control" 
+              rows="4"
+              required
+            ><%=listing.description%></textarea>
+          </div>
+          <div class="invalid-feedback">Please enter a short description</div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Current Image</label>
+          <div class="image-container">
+            <img src="<%=oldImage%>" alt="Current listing image" class="preview-image">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="image" class="form-label">Upload New Image</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-image"></i>
+            </span>
+            <input
+              name="listing[image]"
+              type="file"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <label for="price" class="form-label">Price</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+              </span>
+              <input
+                name="listing[price]"
+                value="<%=listing.price%>"
+                type="number"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="invalid-feedback">Please enter a valid amount!</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="country" class="form-label">Country</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa-solid fa-globe"></i>
+              </span>
+              <input
+                name="listing[country]"
+                value="<%=listing.country%>"
+                type="text"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="invalid-feedback">Country should be valid!</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="location" class="form-label">Location</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fa-solid fa-location-dot"></i>
+            </span>
+            <input
+              name="listing[location]"
+              value="<%=listing.location%>"
+              type="text"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="invalid-feedback">Location should be valid!</div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <a href="/listings/<%=listing._id%>" class="btn btn-secondary">
+            <i class="fa-solid fa-xmark"></i>
+            Cancel
+          </a>
+          <button class="btn btn-dark">
+            <i class="fa-regular fa-pen-to-square"></i>
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
