@@ -164,9 +164,9 @@ wanderlust/
 
 ## 📞 Contact
 
-Email — shivam.smraj@gmail.com  
-Project Link: [https://github.com/shivam-smraj/wanderlust](https://github.com/shivam-smraj/wanderlust)
+Email — nilesh0051bgs@gmail.com  
+Project Link: [https://github.com/nilesh0198/wanderlust](https://github.com/nilesh0198/wanderlust)
 
 ---
 
-Made with ❤️ by Shivam in Summer 2025.
+Made with ❤️ by Nilesh in 2025.
