@@ -3,7 +3,7 @@
 Wanderlust is a modern, full-stack accommodation booking platform inspired by Airbnb. It allows users to list their properties, browse available accommodations, make bookings, and leave reviews. The platform is designed to be fast, secure, and fully responsive for all devices.
 
 
-**Live Demo:** [https://wanderlust‑sm‑raj.onrender.com](https://wanderlust-sm-raj.onrender.com)
+**Live Demo:** [https://wanderlust-listing-travel-app.onrender.com/](https://wanderlust-listing-travel-app.onrender.com/)
 
 ## 🚩 Features
 - User authentication (signup, login, logout, session management)
@@ -165,7 +165,7 @@ wanderlust/
 ## 📞 Contact
 
 Email — nilesh0051bgs@gmail.com  
-Project Link: [https://github.com/nilesh0198/wanderlust](https://github.com/nilesh0198/wanderlust)
+Project Link: [https://github.com/nilesh0198/Wanderlust-Listing-Travel-App-2025](https://github.com/nilesh0198/Wanderlust-Listing-Travel-App-2025)
 
 ---
 
